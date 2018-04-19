@@ -11,14 +11,41 @@ var command = process.argv[2]
 
 if (command != null){
     if (command === 'add'){
-        notes.addNote(argv.title, argv.body);
+        var note;
+        try {
+            note = notes.addNote(argv.title, argv.body);
+            if (note){
+                console.log('Note added.')
+                notes.outputNote(note);
+            } else {
+                console.log('Note already exists.')
+            }
+        } catch (err){
+            console.log(err)
+        }
+        
     } else if (command === 'list'){
-        notes.getAll();
+        var notesList = notes.getAll();
+
+        for (var i =0; i<notesList.length;i++){
+            var note = notesList[i]
+            notes.outputNote(note);
+        }
     } else if (command === 'remove'){
-        notes.remove(argv.title);
+        var noteRemoved = notes.remove(argv.title);
+        var message = noteRemoved ? 'Note removed.' : 'Note not found.';
+        console.log(message);
     } else if (command === 'read') {
-        notes.getNote(argv.title);
+        var note = notes.getNote(argv.title);
+        if (note){
+            notes.outputNote(note);
+        } else {
+            console.log('Note not found');
+        }
+        
     } else {
         console.log('Command not recognized');
     }
 }
+
+

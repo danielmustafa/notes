@@ -1,5 +1,3 @@
-console.log('Starting notes.js')
-
 var fs = require('fs');
 const DATAFILE = 'notes-data.json'
 
@@ -59,7 +57,9 @@ var saveNotes = (notes) => {
   fs.writeFileSync(DATAFILE,JSON.stringify(notes)); 
 }
 
-var outputNote = (note) => console.log(`Title: ${note.title}\n---\nBody: ${note.body}`);
+var outputNote = (note) => {
+  console.log(`Title: ${note.title}\nBody: ${note.body}\n---`);
+}
 
 module.exports = {
   addNote,
